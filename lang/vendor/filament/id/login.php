@@ -11,6 +11,10 @@ return [
         'submit' => [
             'label' => 'Masuk',
         ],
+        
+        'logout' => [
+            'label' => 'Keluar',
+        ],
 
     ],
 
@@ -18,10 +22,17 @@ return [
 
         'email' => [
             'label' => 'Alamat Email',
+            'placeholder' => 'Masukkan alamat email Anda',
+        ],
+
+        'username' => [
+            'label' => 'Nama Pengguna',
+            'placeholder' => 'Masukkan nama pengguna',
         ],
 
         'password' => [
             'label' => 'Kata sandi',
+            'placeholder' => 'Masukkan kata sandi Anda',
         ],
 
         'remember' => [
