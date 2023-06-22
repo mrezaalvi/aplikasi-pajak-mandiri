@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/filament.css',
             ],
+            ssr: 'resources/js/ssr.js',
             refresh: true,
         }),
     ],
