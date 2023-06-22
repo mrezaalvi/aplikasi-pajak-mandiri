@@ -20,7 +20,7 @@ class StatusPtkpResource extends Resource
 {
     protected static ?string $model = StatusPtkp::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $modelLabel = "Daftar Status P T K P";
     

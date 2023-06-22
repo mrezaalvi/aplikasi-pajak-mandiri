@@ -22,9 +22,12 @@ class ListPegawais extends ListRecords
                 ->action('importData')
                 ->modalHeading('Import Data Pegawai')
                 ->form([
-                    FileUpload::make('file-import'),
+                    FileUpload::make('file-import')
+                        ->preserveFilenames()
+                        ->directory('file-import'),
                 ])
                 ->modalButton('Import'),
+           
         ];
     }
 

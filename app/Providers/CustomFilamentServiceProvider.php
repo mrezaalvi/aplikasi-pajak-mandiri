@@ -27,6 +27,12 @@ class CustomFilamentServiceProvider extends FilamentServiceProvider
             Filament::registerNavigationGroups(['Manajemen Perusahaan', 'Manajemen Pengguna', 'Data Referensi',]);
         });
 
+        Filament::registerNavigationGroups([
+            'Manajemen Perusahaan',
+            'Data Referensi',
+            'Manajemen Pengguna',
+        ]);
+
         Filament::registerScripts([
             asset('js/my-script.js'),
         ]);

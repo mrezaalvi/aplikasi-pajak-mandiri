@@ -25,7 +25,7 @@ class TarifPkpResource extends Resource
 {
     protected static ?string $model = TarifPkp::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
     
     protected static ?string $navigationLabel = "Tarif PKP";
 

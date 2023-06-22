@@ -6,11 +6,11 @@ use Filament\Pages\Page;
 
 class ProfilPerusahaan extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
     protected static string $view = 'filament.pages.profil-perusahaan';
     
-    protected static ?string $navigationLabel = "Data Perusahaan";
+    protected static ?string $navigationLabel = "Profil Perusahaan";
 
     protected static ?string $navigationGroup = 'Manajemen Perusahaan';
     

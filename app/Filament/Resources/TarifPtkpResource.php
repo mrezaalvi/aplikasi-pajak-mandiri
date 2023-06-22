@@ -33,7 +33,7 @@ class TarifPtkpResource extends Resource
 {
     protected static ?string $model = TarifPtkp::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $modelLabel = "Daftar Tarif P T K P";
     
