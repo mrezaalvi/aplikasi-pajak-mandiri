@@ -33,6 +33,8 @@ class TarifPkpResource extends Resource
     
     protected static ?int $navigationSort = 1;
 
+    protected static ?string $slug = 'tarif-pkp';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -55,8 +57,8 @@ class TarifPkpResource extends Resource
                             ])->pattern('money'),
                         )
                         ,
-                    TextInput::make('batasMaks')
-                        ->disabled()
+                    TextInput::make('batas_maks')
+                        
                         ->mask(fn (Mask $mask) => $mask
                             ->patternBlocks([
                                 'money' => fn (Mask $mask) => $mask
@@ -67,7 +69,9 @@ class TarifPkpResource extends Resource
                                     ->normalizeZeros(false)
                                     ->signed(false),
                             ])->pattern('money'),
-                        )->disabled(),
+                        )
+                        ->extraInputAttributes(['readonly' => true])
+                        ->dehydrated(false),
                     TextInput::make('persen_tarif')
                         ->required(),
                     Toggle::make('gunakan')
@@ -83,12 +87,7 @@ class TarifPkpResource extends Resource
             ->columns([
                 TextColumn::make('index'),
                 CurrencyColumn::make('batas_min'),
-                CurrencyColumn::make('batas_maks')
-                    // ->formatStateUsing(
-                    //     fn (string $state): string => ($state)?(number_format($state,2,",",".")):""
-                    // )
-                    ,
-                // TextColumn::make('batas_maks'),
+                CurrencyColumn::make('batas_maks'),
                 TextColumn::make('persen_tarif'),
                 IconColumn::make('gunakan')
                     ->label('Digunakan')
@@ -101,7 +100,13 @@ class TarifPkpResource extends Resource
                 //
             ])
             ->actions([
-                EditAction::make(),
+                EditAction::make()
+                ->mutateRecordDataUsing(function (array $data): array {
+                    $tarifLapisSelanjutnya = TarifPkp::where('index', $data['index']+1)->first();
+                    $data['batas_maks'] = ($tarifLapisSelanjutnya)?$tarifLapisSelanjutnya->batas_min:"";
+             
+                    return $data;
+                }),
             ])
             ->bulkActions([
                 // 

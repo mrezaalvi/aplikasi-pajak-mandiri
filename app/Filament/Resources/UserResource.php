@@ -8,6 +8,8 @@ use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
@@ -28,6 +30,8 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = -1;
 
+    protected static ?string $slug = 'pengguna';
+
     protected static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
@@ -42,37 +46,39 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('username')
-                    ->label('Username')
-                    ->unique(ignorable: fn($record)=>$record)
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->label('Alamat Email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                // Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\Select::make('roles')
-                        ->label(__('Batasan Akses'))
-                        ->multiple()
-                        ->relationship('roles', 'name')
-                        ->searchable()
-                        ->preload(),
-                Forms\Components\TextInput::make('password')
-                    ->label('Kata Sandi')
-                    ->password()
-                    ->required()
-                    ->hiddenOn('edit')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Aktif')
-                    ->default(true)
-                    ->required(),
+                Card::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nama')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('username')
+                            ->label('Username')
+                            ->unique(ignorable: fn($record)=>$record)
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Alamat Email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('password')
+                            ->label('Kata Sandi')
+                            ->password()
+                            ->required()
+                            ->hiddenOn('edit')
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Aktif')
+                            ->default(true)
+                            ->required(),
+                        Forms\Components\Select::make('roles')
+                            ->label(__('Batasan Akses'))
+                            ->multiple()
+                            ->relationship('roles', 'name')
+                            ->searchable()
+                            ->preload(),
+                    ]),
             ]);
     }
 

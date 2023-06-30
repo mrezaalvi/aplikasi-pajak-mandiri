@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Pegawai;
+use App\Traits\HasLocaleCurrency;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StatusPtkp extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasLocaleCurrency;
 
     protected $fillable = [
         'kode',
@@ -18,7 +20,7 @@ class StatusPtkp extends Model
         'penghasilan_digabung',
         'jumlah_tanggungan',
     ];
-
+    
     protected $appends = ['keterangan', 'tarifPtkp'];
 
     // protected function kode():Attribute{
@@ -31,6 +33,14 @@ class StatusPtkp extends Model
     //     );
     // }
     
+    // public function penghasilanDigabung(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => ($value)?"Ya":"Tidak",
+    //         // set: fn ($value) => ($value == "Ya")? true: false,
+    //     );
+    // }
+
     protected function keterangan():Attribute{
         return Attribute::make(
             get: fn() => 
@@ -41,13 +51,23 @@ class StatusPtkp extends Model
         );
     }
 
-        protected function tarifPtkp(): Attribute{
-            $tarifPtkp = DB::table('tarif_ptkps')->orderBy('tahun_berlaku', 'desc')->first();
-            return Attribute::make(
-                get: fn() => 
-                    ((($this->penghasilan_digabung)?2:1) * $tarifPtkp->tarif_penghasilan)  +  
-                    (($this->jumlah_tanggungan + (($this->status_kawin == "kawin")? 1 : 0)) * $tarifPtkp->tarif_tanggungan),
-                    
-            );
-        }
+    protected function tarifPtkp(): Attribute{
+        $tarifPtkp = DB::table('tarif_ptkps')->orderBy('tahun_berlaku', 'desc')->first();
+        return Attribute::make(
+            get: fn() => 
+            $this->setLocaleCurrencyFormat(((($this->penghasilan_digabung)?2:1) * $tarifPtkp->tarif_penghasilan)  +  
+                (($this->jumlah_tanggungan + (($this->status_kawin == "kawin")? 1 : 0)) * $tarifPtkp->tarif_tanggungan)),
+                
+        );
+    }
+
+    /**
+     * Get all of the comments for the StatusPtkp
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pegawais(): HasMany
+    {
+        return $this->hasMany(Pegawai::class);
+    }
 }

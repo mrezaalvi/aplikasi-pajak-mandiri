@@ -29,6 +29,8 @@ class PermissionResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $slug = 'izin-akses';
+
     protected static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

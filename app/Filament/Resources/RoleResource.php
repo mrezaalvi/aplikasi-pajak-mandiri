@@ -20,15 +20,17 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $modelLabel = "Daftar Batasan Akses";
+    protected static ?string $modelLabel = "Daftar Peran Pengguna";
     
-    protected static ?string $navigationLabel = "Batasan Pengguna";
+    protected static ?string $navigationLabel = "Peran Pengguna";
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $navigationGroup = 'Manajemen Pengguna';
 
     protected static ?int $navigationSort = 2;
+
+    protected static ?string $slug = 'peran-pengguna';
 
     protected static function getNavigationBadge(): ?string
     {

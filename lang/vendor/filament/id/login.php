@@ -2,7 +2,7 @@
 
 return [
 
-    'title' => 'Masuk',
+    'title' => 'Halaman Login',
 
     'heading' => 'Masuk ke akun Anda',
 
@@ -42,7 +42,7 @@ return [
     ],
 
     'messages' => [
-        'failed' => 'Kredensial yang diberikan tidak dapat ditemukan.',
+        'failed' => 'Data akun Anda tidak ditemukan. Pastikan kembali nama pengguna dan kata sandi Anda.',
         'throttled' => 'Terlalu banyak percobaan masuk. Silakan ulangi dalam :seconds detik.',
     ],
 

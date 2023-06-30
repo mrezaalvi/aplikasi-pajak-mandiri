@@ -22,10 +22,36 @@ class UserSeeder extends Seeder
                 'email' => 'mrezaalvi@gmail.com',
                 'password' => 'Muhammad_570M',
                 'role' => 'superuser',
-            ]
+            ],
+            [
+                'name' => 'Direktur',
+                'username' => 'direktur',
+                'email' => 'direktur@paman-bks.com',
+                'password' => 'direktur',
+                'role' => 'direktur',
+            ],
+            [
+                'name' => 'Manajer',
+                'username' => 'manajer',
+                'email' => 'manajer@paman-bks.com',
+                'password' => 'manajer',
+                'role' => 'manajer',
+            ],
+            [
+                'name' => 'Administrator',
+                'username' => 'admin',
+                'email' => 'admin@paman-bks.com',
+                'password' => 'admin1234',
+                'role' => 'administrator',
+            ],
         ];
 
         User::truncate();
+
+
+
+
+
 
         foreach($users as $user){
             $currentUser = User::firstOrCreate([
@@ -34,9 +60,8 @@ class UserSeeder extends Seeder
                 'email' => $user['email'],
                 'password' => Hash::make($user['password']),
             ]);
-            if(!$currentUser->hasRole(Role::all())){
-                $currentUser->Role($user['role']);
-            }
+
+            $currentUser->assignRole($user['role']);
         }
         
     }

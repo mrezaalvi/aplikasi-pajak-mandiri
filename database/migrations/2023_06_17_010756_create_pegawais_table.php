@@ -13,51 +13,39 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('nip');
+            $table->string('nip', 30);
             $table->string('nama', 150);
-            $table->string('nik', 30)
-                ->unique()
-                ->default('000000000000000');
-            $table->string('npwp', 30)
-                ->default('000000000000000');;
-            $table->enum('status_pegawai', ['tetap', 'tidak tetap'])
-                ->default('tidak tetap');
-            $table->enum('jenis_kelamin',['laki-laki', 'perempuan'])
-                ->default('laki-laki');
-            $table->string('bulan_awal_terima_gaji')->nullable();
-            $table->string('bulan_akhir_terima_gaji')->nullable();
-            $table->string('alamat');
+            $table->string('nik', 30);
+            $table->string('npwp', 30)->nullable();
+            $table->enum('jenis_kelamin',['laki-laki', 'perempuan']);
+            $table->enum('status_pegawai', ['tetap', 'tidak tetap']);
+            $table->date('tanggal_masuk')->nullable();
+            $table->date('tanggal_keluar')->nullable();
+            $table->string('alamat')->nullable();
             $table->enum('keterangan_evaluasi', ['normal/aktif','meninggal_dunia','keluar'])
                 ->default('normal/aktif');
             $table->timestamps();
-            
+            $table->softDeletes();
+
             // status ptkp ref ke tabel status_ptkp
             $table->foreignId('status_ptkp_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->nullable()
+                ->constrained();
             
             // alamat (kota) ref ke tabel  (kota)
             $table->foreignId('kabupaten_kota_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->nullable()
+                ->constrained();
 
             // jabatan ref ke tabel jabatan
             $table->foreignId('jabatan_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->nullable()
+                ->constrained();
 
             // kewarganegraan dan kode negara ref ke tabel  (negara)
             $table->foreignId('negara_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-
-                
-            $table->softDeletes();
-            
+                ->nullable()
+                ->constrained();
         });
     }
 

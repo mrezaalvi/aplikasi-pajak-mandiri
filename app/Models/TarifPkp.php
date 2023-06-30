@@ -21,6 +21,14 @@ class TarifPkp extends Model
 
     protected $append = ['batas_maks'];
 
+    protected function getCurrency($value){
+        if(is_null($value)){
+            $value = 0;
+        }
+        if(!is_numeric($value))
+            $value = floatval(Str::replace(',','.',Str::replace('.','',$value)));
+        return $value;
+    }
     
     public function batasMaks(): Attribute
     {
@@ -34,6 +42,7 @@ class TarifPkp extends Model
     public function batasMin(): Attribute
     {
         return new Attribute(
+            set: fn ($value) => $this->getCurrency($value),
             get: fn ($value) => number_format($value, 2, ",", "."),
         );
     }

@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             ObjekPajakSeeder::class,
             PerusahaanSeeder::class,
             PegawaiSeeder::class,
+            TarifJabatanSeeder::class,
+            PenghasilanPegawaiSeeder::class,
+            PerhitunganPajakSeeder::class,
         ]);
     }
 }

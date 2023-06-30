@@ -17,7 +17,7 @@ class JabatanSeeder extends Seeder
             'site manager',
             'admin hrd',
             'admin bandara',
-            'asst. supervisor',
+            'assistant supervisor',
             'supervisor',
         ];
 

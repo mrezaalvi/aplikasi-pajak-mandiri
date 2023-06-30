@@ -72,7 +72,7 @@
         @if ($icon && $iconPosition === 'before')
             <x-dynamic-component :component="$icon" :class="$iconClasses" />
         @endif
-        <span">
+        <span>
             {{ ($state)?__("Rp"):"" }}
         </span>
         <span

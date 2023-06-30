@@ -13,6 +13,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\RestoreAction;
@@ -38,6 +39,8 @@ class KppPajakResource extends Resource
     protected static ?string $navigationGroup = 'Data Referensi';
     
     protected static ?int $navigationSort = -1;
+
+    protected static ?string $slug = 'kpp-pajak';
 
     protected static function getNavigationBadge(): ?string
     {
@@ -87,11 +90,13 @@ class KppPajakResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
-                ForceDeleteAction::make(),
-                RestoreAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
+                ]),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),

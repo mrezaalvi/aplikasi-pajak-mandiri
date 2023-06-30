@@ -19,11 +19,6 @@ class TarifPtkp extends Model
         'tarif_tanggungan',
     ];
 
-    // protected $casts = [
-    //     'tarif_penghasilan' => MoneyCast::class,
-    //     'tarif_tanggungan' => MoneyCast::class,
-    // ];
-
     public function tarifPenghasilan(): Attribute
     {
         return Attribute::make(

@@ -22,8 +22,8 @@ class PerusahaanSeeder extends Seeder
                 'npwp_perusahaan' => '739681898215000',
                 'alamat_perusahaan' => 'RUKO GLOBAL 22, JL. DIPONOGORO 10-11, BATU AJI, BULIANG',
                 'no_telp' => '085264561077',
-                'npwp_penandatangan' => 'ZULBAKRI ISMAEL',
-                'nama_penandatangan' => '149706541215000',
+                'nama_penandatangan' => 'ZULBAKRI ISMAEL',
+                'npwp_penandatangan' => '149706541215000',
                 'kabupaten_kota' => 'KOTA BATAM',
             ],
         ];

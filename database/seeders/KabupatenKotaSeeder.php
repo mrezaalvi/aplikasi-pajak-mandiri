@@ -200,7 +200,7 @@ class KabupatenKotaSeeder extends Seeder
                 "kode_provinsi" => "12",
                 "nama" => "KABUPATEN NIAS BARAT",
             ],
-            ["kode" => "1271", "kode_provinsi" => "12", "nama" => "KOTA SIBOLGA"],
+            ["kode" => "1273", "kode_provinsi" => "12", "nama" => "KOTA SIBOLGA"],
             ["kode" => "1272", "kode_provinsi" => "12", "nama" => "KOTA TANJUNG BALAI"],
             [
                 "kode" => "1273",
@@ -208,8 +208,8 @@ class KabupatenKotaSeeder extends Seeder
                 "nama" => "KOTA PEMATANG SIANTAR",
             ],
             ["kode" => "1274", "kode_provinsi" => "12", "nama" => "KOTA TEBING TINGGI"],
-            ["kode" => "1275", "kode_provinsi" => "12", "nama" => "KOTA MEDAN"],
-            ["kode" => "1276", "kode_provinsi" => "12", "nama" => "KOTA BINJAI"],
+            ["kode" => "1271", "kode_provinsi" => "12", "nama" => "KOTA MEDAN"],
+            ["kode" => "1275", "kode_provinsi" => "12", "nama" => "KOTA BINJAI"],
             [
                 "kode" => "1277",
                 "kode_provinsi" => "12",

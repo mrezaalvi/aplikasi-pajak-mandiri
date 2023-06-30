@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('no_telp',30);
             $table->string('npwp_penandatangan');
             $table->string('nama_penandatangan');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->foreignId('kabupaten_kota_id')
                 ->constrained()

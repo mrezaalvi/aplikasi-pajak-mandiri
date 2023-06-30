@@ -14,7 +14,7 @@
     <div x-data="{ state: $wire.entangle('{{ $getStatePath() }}').defer }">
         <!-- Interact with the `state` property in Alpine.js -->
         <label class="border-2 border-gray-200 p-3 w-full block rounded cursor-pointer my-2" for="customFile" x-data="{ files: null }">
-            <input type="file" class="sr-only" id="customFile" x-on:change="files = Object.values($event.target.files)" {{ $getExtraInputAttributeBag() }}>
+            <input type="file" class="sr-only" id="customFile" x-on:change="files = Object.values($event.target.files)">
             <span x-text="files ? files.map(file => file.name).join(', ') : 'Choose single file...'"></span>
         </label>
     </div>

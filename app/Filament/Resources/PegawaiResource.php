@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Negara;
+use App\Models\Jabatan;
 use App\Models\Pegawai;
 use Filament\Pages\Page;
 use App\Models\StatusPtkp;
@@ -22,6 +24,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\RestoreBulkAction;
@@ -44,6 +47,8 @@ class PegawaiResource extends Resource
     
     protected static ?int $navigationSort = 1;
 
+    protected static ?string $slug = 'pegawai';
+
     protected static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
@@ -61,8 +66,8 @@ class PegawaiResource extends Resource
                 Card::make()->schema([
                     TextInput::make('nip')
                         ->label('NIP')
-                        ->disabled()
-                        ->dehydrated(fn (Page $livewire) => $livewire instanceof CreateRecord),
+                        // ->extraInputAttributes(['readonly' => false])
+                        ->disabledOn('edit'),
                     TextInput::make('nama')
                         ->label('Nama')
                         ->autofocus()
@@ -75,44 +80,62 @@ class PegawaiResource extends Resource
                             )
                         ->required()
                         ->maxLength(30),
-                    Select::make('status_ptkp')
-                        ->label('Status PTKP')
-                        ->relationship('statusPtkp', 'kode')
-                        ->preload()
-                        ->searchable(),
+                    TextInput::make('nik')
+                        ->label('NIK')
+                        ->maxLength(16)
+                        ->required(),
                     Select::make('status_pegawai')
                         ->label('Status Pegawai')
                         ->options([
-                            'tidak tetap' => 'Tidak Tetap',
                             'tetap' => 'Tetap',
-                        ])->default('tetap'),
+                            'tidak tetap' => 'Tidak Tetap',
+                        ])->required(),
+                    Select::make('jabatan_id')
+                        ->label('Jabatan')
+                        // ->relationship('jabatan', 'nama_jabatan')
+                        ->options(Jabatan::all()->pluck( 'nama_jabatan','id'))
+                        ->preload()
+                        ->searchable(),
+                    Select::make('status_ptkp_id')
+                        ->label('Status PTKP')
+                        // ->relationship('statusPtkp', 'kode')
+                        ->preload()
+                        ->searchable()
+                        ->options(StatusPtkp::all()->pluck( 'kode','id'))
+                        ->required(),
+                    
                     Select::make('jenis_kelamin')
                         ->label('Jenis Kelamin')
                         ->options([
                             'laki-laki' => 'Laki-laki',
                             'perempuan' => 'Perempuan',
-                        ])->default('laki-laki'),
-                    
-                    TextInput::make('alamat_jalan')
+                        ])->required(),
+                    TextInput::make('alamat')
                         ->label('Alamat'),
-                    Select::make('alamat_kota')
+                    Select::make('kabupaten_kota_id')
                         ->label('Kota')
-                        ->relationship('kabupatenKota', 'nama')
-                        // ->options(KabupatenKota::all()->pluck('id', 'nama'))
+                        // ->relationship('kabupatenKota', 'nama')
+                        ->options(KabupatenKota::all()->pluck( 'nama','id'))
                         ->preload()
-                        ->searchable(),
+                        ->searchable()
+                        ->required(),
                     Select::make('keterangan_evaluasi')
                         ->label('Keterangan Evaluasi')
+                        // ->extraInputAttributes(['readonly'=>false])
+                        ->disabledOn('create')
                         ->options([
                             'normal/aktif' => "Normal/Aktif",
                             'meninggal_dunia' => 'Meninggal Dunia',
                             'keluar' => 'Keluar'
-                        ])->default('normal/aktif'),
-                    Select::make('negara')
+                        ])
+                        ->default('normal/aktif'),
+                    Select::make('negara_id')
                         ->label('Negara')
-                        ->relationship('negara', 'nama')
+                        // ->relationship('negara', 'nama')
+                        ->options(Negara::all()->pluck('nama', 'id'))
                         ->preload()
-                        ->searchable(),
+                        ->searchable()
+                        ->required(),
                 ]),
             ]);
     }
@@ -147,8 +170,9 @@ class PegawaiResource extends Resource
                     ->sortable()
                     ->searchable(),
             ])
+            ->defaultSort('nip')
             ->filters([
-                //
+                TrashedFilter::make(),
             ])
             ->actions([
                 ActionGroup::make([
@@ -170,7 +194,7 @@ class PegawaiResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            
         ];
     }
     
@@ -183,4 +207,12 @@ class PegawaiResource extends Resource
             'edit' => Pages\EditPegawai::route('/{record}/edit'),
         ];
     }    
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
 }

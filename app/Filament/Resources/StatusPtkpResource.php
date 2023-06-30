@@ -52,15 +52,12 @@ class StatusPtkpResource extends Resource
                 TextColumn::make('status_kawin')
                     ->searchable(),
                 IconColumn::make('gbg_penghasilan')
-                    ->label("Aktif")
+                    ->label("Penghasilan Digabung")
                     ->boolean(),
                 TextColumn::make('jmlh_tanggungan')
                     ->searchable()
                     ->extraCellAttributes(['class' => 'w-px']),
-                CurrencyColumn::make('tarifPtkp')
-                    ->formatStateUsing(
-                        fn (string $state): string => number_format($state,2,",",".")
-                    ),
+                CurrencyColumn::make('tarifPtkp'),
             ])
             ->poll('10s')
             ->filters([

@@ -18,7 +18,7 @@ class Jabatan extends Model
 
     protected function namaJabatan(): Attribute{
         return Attribute::make(
-            get: fn($value)=>Str::title($value),
+            get: fn($value)=>Str::upper($value),
             set: fn($value)=>Str::lower($value),
         );
     }

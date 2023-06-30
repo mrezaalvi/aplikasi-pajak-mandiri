@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\PegawaiResource\Pages;
 
-use App\Filament\Resources\PegawaiResource;
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\PegawaiResource;
 
 class EditPegawai extends EditRecord
 {
@@ -15,11 +16,13 @@ class EditPegawai extends EditRecord
         return [
             Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
+            Action::make('Kembali')
+                ->url($this->getRedirectUrl()),
         ];
     }
 
     protected function getRedirectUrl(): string
     {
-        return $this->previousUrl ?? $this->getResource()::getUrl('index');
+        return $this->getResource()::getUrl('index');
     }
 }
